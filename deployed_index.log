@@ -1,0 +1,22 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 3.128.188.19...
+* TCP_NODELAY set
+* Connected to ec2-3-128-188-19.us-east-2.compute.amazonaws.com (3.128.188.19) port 80 (#0)
+> GET / HTTP/1.1
+> Host: ec2-3-128-188-19.us-east-2.compute.amazonaws.com
+> User-Agent: curl/7.54.0
+> Accept: */*
+> Cookie: login=eyJsb2duYW1lIjoiYXdkZW9yaW8ifQ.X4Zf4Q.UvgFqer3v8PuRhkOOGuv4zubzZo
+> 
+< HTTP/1.1 200 OK
+< Server: nginx/1.18.0 (Ubuntu)
+< Date: Wed, 14 Oct 2020 02:19:14 GMT
+< Content-Type: text/html; charset=utf-8
+< Content-Length: 1097
+< Connection: keep-alive
+< Vary: Cookie
+< 
+{ [1097 bytes data]
+100  1097  100  1097    0     0   8401      0 --:--:-- --:--:-- --:--:--  8438
+* Connection #0 to host ec2-3-128-188-19.us-east-2.compute.amazonaws.com left intact

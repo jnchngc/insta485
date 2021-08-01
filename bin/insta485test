@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# insta485test
+#
+# tests project one code style and correctness
+
+# stop on errors and print commands
+set -Eeuo pipefail
+set -x
+
+# test style
+pycodestyle insta485
+pydocstyle insta485
+pylint --disable=cyclic-import insta485
+
+# run all unit tests
+pytest -v tests

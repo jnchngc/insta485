@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Eric Littman">
+    <title>insta485</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
+</head>
+<body>
+    <ul class="pageTop">
+        <li><a href="/"><img src="{{ url_for('static', filename='images/logo.png') }}" height="100" alt= "logo pic"></a></li>
+        {% if is_logged_in %}
+        <li class="right-nav"><a href="{{ url_for('show_explore') }}">explore</a></li>
+        <li class="right-nav"><a href="{{ url_for('show_user', user_url_slug=logname) }}">{{ logname }}</a></li>
+        {% endif %}
+        <!-- should this be awdeorio instead?-->
+    </ul>
+
+    <hr>
+    <div class= "entirePost">
+        <div class="postTop">
+            <a class="profilePic" href="{{ url_for('show_user', user_url_slug=owner) }}"><img src="{{ url_for('download_file', filename=owner_img_filename) }}" alt= "awdeorio profile pic" height="25" width="25"></a>
+            <a href="{{ url_for('show_user', user_url_slug=owner) }}">{{ owner }}</a>
+            
+            <div class="timestamp">
+                <a href="{{ url_for('show_post', postid_url_slug=postid) }}">{{ timestamp }}</a>
+            </div>
+        </div>
+        
+        <img class="picture" src="{{ url_for('download_file', filename=img_filename) }}" alt= "{{ img_url }}">
+        
+        <p style="margin-left: 10px;">{{ likes }} {% if likes == 1 %} like {% else %} likes {% endif %}</p>
+       
+        <div>
+            {% for comment in comments %}
+            <div class="comments"><a href= "{{ url_for('show_user', user_url_slug=comment.owner) }}">{{ comment.owner }}</a> {{ comment.text }}
+                <!-- DELETE COMMENT 'FIXME') -->
+                {% if comment.owner == logname %}
+                <form action="{{ url_for('show_post', postid_url_slug=postid) }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="commentid" value="{{ comment.commentid }}"/>
+                    <input type="submit" name="uncomment" value="delete"/>
+                </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            {% if logname_likes_post %}
+            <!-- DISLIKE BUTTON -->
+            <form action="{{ url_for('show_post', postid_url_slug=postid) }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="postid" value="{{ postid }}"/>
+                <input type="submit" name="unlike" value="unlike"/>
+            </form>
+      
+            {% else %}
+            <!-- LIKE BUTTON -->
+            <form action="{{ url_for('show_post', postid_url_slug=postid) }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="postid" value="{{ postid }}"/>
+                <input type="submit" name="like" value="like"/>
+            </form>
+            {% endif %}
+            
+            <!-- COMMENT -->
+            <form action="{{ url_for('show_post', postid_url_slug=postid) }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="postid" value="{{ postid }}"/>
+                <input type="text" name="text"/>
+                <input type="submit" name="comment" value="comment"/>
+            </form>
+            
+            {% if logname == owner %}
+            <!-- DELETE POST 'FIXME') -->
+            <form action="{{ url_for('show_post', postid_url_slug=postid) }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="postid" value="{{ postid }}"/>
+                <input type="submit" name="delete" value="delete this post"/>
+            </form>
+            {% endif %}
+        </div>
+  
+    </div>
+</body>
+
+</html>

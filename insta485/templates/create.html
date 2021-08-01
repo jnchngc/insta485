@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Eric Littman">
+    <title>insta485</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
+</head>
+<body>
+    <ul class="pageTop">
+        <li><a href="{{ url_for('show_index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" height="100" alt= "logo pic"></a></li>
+        <li class="right-nav">login</li>
+    </ul>
+
+    <hr>
+
+    <!-- DO NOT CHANGE THIS (aside from styling) -->
+    <form action="{{ url_for('create') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="text" placeholder="fullname" name="fullname"/>
+        <input type="text" placeholder="username" name="username"/>
+        <input type="text" placeholder="email" name="email"/>
+        <input type="password" placeholder="password" name="password"/>
+        <input type="submit" name="signup" value="sign up"/>
+    </form>
+
+    <p>Have an account? <a href="{{ url_for('show_login') }}"><b>Log in </b></a></p>
+    
+</body>
+</html>

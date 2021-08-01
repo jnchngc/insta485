@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Eric Littman">
+    <title>insta485</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
+</head>
+<body>
+    <!-- plain old HTML and jinja2 navigation bar -->
+    <ul class="pageTop">
+        <li><a href="/"><img src="{{ url_for('static', filename='images/logo.png') }}" height="100" alt= "logo pic"></a></li>
+        {% if is_logged_in %}
+        <li class="right-nav"><a href="{{ url_for('show_explore') }}">explore</a></li>
+        <li class="right-nav"><a href="{{ url_for('show_user', user_url_slug=logname) }}">{{ logname }}</a></li>
+        {% endif %}
+        <!-- should this be awdeorio instead?-->
+    </ul>
+    <hr>
+
+    <!-- 
+    We will tell React to use this div as it's entry-point for rendering 
+    **NOTE**: Make sure to include the "Loading ..." in the div below. 
+    This will display before our React code runs and modifies the DOM!
+    -->
+	<!-- div that is edited by javascript that we will write for project 3 -->
+	<div id="reactEntry">
+      Loading ...
+	</div>
+	<!-- Load JavaScript -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+	
+</body>
+</html>

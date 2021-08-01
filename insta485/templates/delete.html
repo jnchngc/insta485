@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Eric Littman">
+    <title>insta485</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
+</head>
+<body>
+    <ul class="pageTop">
+        <li><a href="{{ url_for('show_index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" height="100" alt= "logo pic"></a></li>
+        {% if is_logged_in %}
+        <li class="right-nav"><a href="{{ url_for('show_explore') }}">explore</a></li>
+        <li class="right-nav"><a href="{{ url_for('show_user', user_url_slug=logname) }}">{{ logname }}</a></li>
+        {% endif %}
+        <!-- should this be awdeorio instead?-->
+    </ul>
+
+    <hr>
+    <p>{{ logname }}</p>
+    <!-- CONFIRM DELETE BUTTON -->
+    <form action="{{ url_for('show_delete') }}" method="post" enctype="multipart/form-data">
+        <input type="submit" name="delete" value="confirm delete account"/>
+    </form>
+</body>

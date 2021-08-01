@@ -1,0 +1,54 @@
+.pageTop {
+    list-style-type: none;
+    height: 100px;
+}
+
+.body {
+    background: rgb(2,0,36);
+    background: linear-gradient(80deg, rgba(2,0,36,1) 0%, rgba(185,90,208,1) 0%, rgba(177,73,93,1) 57%, rgba(233,90,63,1) 96%);
+}
+
+li {
+    display: inline;
+    padding: 10px;
+}
+ul{ 
+    display: inline; 
+    margin:auto;
+
+}
+
+.profile {
+    margin-left: 250px;
+    margin-right: 250 px;
+}
+
+.profile p a {
+    font-weight: bold;
+}
+
+.profile img {
+    display: inline;
+    width: 400px;
+    height: 400px;
+}
+
+.right-nav {
+    float: right;
+    margin-right: 20px;
+    margin-top: 50px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+a:link {
+    color: black;
+    text-decoration: none;
+  }
+
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+}

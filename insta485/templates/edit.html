@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Eric Littman">
+    <title>insta485</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
+</head>
+<body>
+    <ul class="pageTop">
+        <li><a href="{{ url_for('show_index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" height="100" alt= "logo pic"></a></li>
+        {% if is_logged_in %}
+        <li class="right-nav"><a href="{{ url_for('show_explore') }}">explore</a></li>
+        <li class="right-nav"><a href="{{ url_for('show_user', user_url_slug=logname) }}">{{ logname }}</a></li>
+        {% endif %}
+        <!-- should this be awdeorio instead?-->
+    </ul>
+
+    <hr>
+
+    <div>
+        <!--Need profile pic url-->
+        <img src="{{ url_for('download_file', filename=filename) }}" alt="profilepic">
+        <p>{{ logname }}</p>
+    </div>
+    <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+    <form action="{{ url_for('edit') }}" method="post" enctype="multipart/form-data">
+      <input type="file" name="file">
+      <input type="text" name="fullname" value="{{ fullname }}"/>
+      <input type="text" name="email" value="{{ email }}"/>
+      <input type="submit" name="update" value="submit"/>
+    </form>
+    
+    <p><a href="{{ url_for('show_password') }}"><b>Change password</b></a></p>
+    <p><a href="{{ url_for('show_delete') }}"><b>Delete account</b></a></p>
+  
+</body>

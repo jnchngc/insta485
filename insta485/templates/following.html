@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Eric Littman">
+    <title>insta485</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
+</head>
+<body>
+    <ul class="pageTop">
+        <li><a href="/"><img src="{{ url_for('static', filename='images/logo.png') }}" height="100" alt= "logo pic"></a></li>
+        {% if is_logged_in %}
+        <li class="right-nav"><a href="{{ url_for('show_explore') }}">explore</a></li>
+        <li class="right-nav"><a href="{{ url_for('show_user', user_url_slug=logname) }}">{{ logname }}</a></li>
+        {% endif %}
+    </ul>
+
+    <hr>
+
+    <h1 style="margin-left: 70px">Following</h1>
+
+    {% for follow in following %}
+    <div class="followers">
+        <img style="display:inline" src= "{{ url_for('download_file', filename=follow.user_img_url) }}" height="50" width="50" alt="{{ username }} profile">
+        <a href="{{ url_for('show_user', user_url_slug=follow.username) }}" style="display:inline">{{ follow.username }}</a>
+        {% if logname != follow.username %} {% if follow.logname_follows_username %} following {% else %} not following {% endif %} {% endif %}
+
+        {% if follow.username == logname %}
+        {% elif follow.logname_follows_username %}
+        <!-- UNFOLLOW BUTTON -->
+        <form action="{{ url_for('show_following', follower_u=page_owner_name) }}" method="post" enctype="multipart/form-data">
+            <input type="submit" name="unfollow" value="unfollow"/>
+            <input type="hidden" name="username" value="{{ follow.username }}"/>
+        </form>
+      
+        {% else %}
+        <!-- FOLLOW BUTTON -->
+        <form action="{{ url_for('show_following', follower_u=page_owner_name) }}" method="post" enctype="multipart/form-data">
+            <input type="submit" name="follow" value="follow"/>
+            <input type="hidden" name="username" value="{{ follow.username }}"/>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+</body>
+
+</html>

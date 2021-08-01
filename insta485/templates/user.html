@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Eric Littman">
+    <title>insta485</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile_style.css') }}">
+</head>
+<body>
+    <ul class="pageTop">
+        <li><a href="{{ url_for('show_index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" height="100" alt="logo"></a></li>
+        {% if is_logged_in %}
+        <li class="right-nav"><a href="{{ url_for('show_explore') }}">explore</a></li>
+        <li class="right-nav"><a href="{{ url_for('show_user', user_url_slug=logname) }}">{{ logname }}</a></li>
+        {% endif %}
+    </ul>
+    <hr>
+
+    <div class="profile">
+        <p style="font-size: 50px;"> {{ username }}</p>
+	  {% if logname == username %}
+
+      <a href="{{ url_for('edit') }}">Edit profile</a>
+      <!-- LOGOUT BUTTON -->
+	  <form action="{{ url_for('show_logout') }}" method="post" enctype="multipart/form-data">
+            <input type="submit" name="logout" value="Logout"/>
+	  </form>
+	  
+	  {% else %}
+
+        {% if logname_follows_username %}
+        following
+        <!-- UNFOLLOW BUTTON -->
+        <form action="{{ url_for('show_user', user_url_slug=username) }}" method="post" enctype="multipart/form-data">
+            <input type="submit" name="unfollow" value="unfolow"/>
+            <input type="hidden" name="username" value="{{ username }}"/>
+        </form>
+    
+        {% else %}
+        not following
+        <!-- FOLLOW BUTTON -->
+        <form action="{{ url_for('show_user', user_url_slug=username) }}" method="post" enctype="multipart/form-data">
+            <input type="submit" name="follow" value="follow"/>
+            <input type="hidden" name="username" value="{{ username }}"/>
+        </form>
+    
+        {% endif %}
+	  
+	  {% endif %}
+	
+        <p style="font-size: 20px;">{{ total_posts }} {% if total_posts == 1 %} post {% else %} posts {% endif %} 
+            <a href="{{ url_for('show_followers', users_name=username) }}">{{ followers }} {% if followers == 1 %} follower {% else %} followers {% endif %} </a>
+            <a href="{{ url_for('show_following', follower_u=username) }}">{{ following }} following</a>
+        <p>{{ fullname }}</p>
+    <!-- CREATE NEW POST BUTTON -->
+	{% if logname == username %}
+	<form action="{{ url_for('show_user', user_url_slug=username) }}" method="post" enctype="multipart/form-data">
+	  <input type="file" name="file">
+	  <input type="submit" name="create_post" value="upload new post"/>
+	</form>
+	{% endif %}
+        {% for post in posts %}
+        <a href="{{ url_for('show_post', postid_url_slug=post.postid) }}">
+            <img src="{{ url_for('download_file', filename=post.img_url) }}" alt= "Image one">
+        </a>
+        {% endfor %}
+    </div>
+</body>
+</html>

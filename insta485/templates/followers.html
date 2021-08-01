@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Eric Littman">
+    <title>insta485</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_style.css') }}">
+</head>
+<body>
+    <ul class="pageTop">
+        <li><a href="{{ url_for('show_index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" height="100" alt= "logo pic"></a></li>
+        {% if is_logged_in %}
+        <li class="right-nav"><a href="{{ url_for('show_explore') }}">explore</a></li>
+        <li class="right-nav"><a href="{{ url_for('show_user', user_url_slug=logname) }}">{{ logname }}</a></li>
+        {% endif %}
+        <!-- should this be awdeorio instead?-->
+    </ul>
+
+    <hr>
+
+    <h1 style="margin-left: 70px">Followers</h1>
+
+    {% for follower in followers %}
+    <div class="followers">
+        <img style="display:inline" src="{{ url_for('download_file', filename=follower.user_img_url) }}" height="50" width="50" alt="{{ username }} profile">
+        <a href="{{ url_for('show_user', user_url_slug=follower.username) }}" style="display:inline">{{ follower.username }}</a>
+        <span>{% if logname != follower.username %} {% if follower.logname_follows_username %} following {% else %} not following {% endif %} {% endif %}</span>
+        {% if follower.username == logname %}
+        {% elif follower.logname_follows_username %}
+        <!-- UNFOLLOW BUTTON -->
+        <form action="{{ url_for('show_followers', users_name=page_owner_name) }}" method="post" enctype="multipart/form-data">
+            <input type="submit" name="unfollow" value="unfollow"/>
+            <input type="hidden" name="username" value="{{ follower.username }}"/>
+        </form>
+      
+        {% else %}
+        <!-- FOLLOW BUTTON -->
+        <form action="{{ url_for('show_followers', users_name=page_owner_name) }}" method="post" enctype="multipart/form-data">
+            <input type="submit" name="follow" value="follow"/>
+            <input type="hidden" name="username" value="{{ follower.username }}"/>
+        </form>
+        {% endif %}
+    </div>
+  
+
+    {% endfor %}
+    
+</body>
+
+</html>
