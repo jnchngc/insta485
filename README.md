@@ -19,3 +19,5 @@ chmod +x bin/insta485run
 
 # Project Description
 This project is an imitation instagram web-app created with full stack development tools, including client-side dynamic pages.
+
+Majority of source code can be founder in insta485/views, insta485/js, and insta485/api.
